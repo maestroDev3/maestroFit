@@ -1,0 +1,43 @@
+# Minimale CI (vorgezogen aus Story #15, die sie ausbaut: APK-Artefakt, Pinning,
+# Branch-Schutz). Nötig ab Task #41, weil Tests nur auf Runnern laufen können.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prüfen, ob Flutter-Projekt vorhanden
+        id: check
+        run: echo "exists=$([ -f pubspec.yaml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
+
+      - uses: subosito/flutter-action@v2
+        if: steps.check.outputs.exists == 'true'
+        with:
+          channel: stable
+          cache: true
+
+      - name: Abhängigkeiten
+        if: steps.check.outputs.exists == 'true'
+        run: flutter pub get
+
+      - name: Codegenerierung
+        if: steps.check.outputs.exists == 'true'
+        run: |
+          if grep -q build_runner pubspec.yaml; then
+            dart run build_runner build --delete-conflicting-outputs
+          fi
+
+      - name: Analyse
+        if: steps.check.outputs.exists == 'true'
+        run: flutter analyze
+
+      - name: Tests
+        if: steps.check.outputs.exists == 'true'
+        run: flutter test
