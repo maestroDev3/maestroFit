@@ -11,7 +11,7 @@ Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
 ## Als Nächstes
 
-- #13 App-Gerüst mit Hauptnavigation und Theme (hell/dunkel) (Epic #6) – sobald vom Nutzer freigegeben
+- #13 App-Gerüst mit Hauptnavigation und Theme (hell/dunkel) (Epic #6) – `ready`, Tasks #41 → #42 → #43
 
 ## Backlog nach Initiative → Epic
 
@@ -19,8 +19,9 @@ Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
 | Epic | Stand | Stories (Reihenfolge) |
 |---|---|---|
-| #6 Lauffähiges App-Gerüst | 0 von 3 zu | #13 App-Gerüst/Navigation/Theme → #14 Zweisprachigkeit DE/EN → #15 CI prüft jeden PR |
+| #6 Lauffähiges App-Gerüst | 0 von 5 zu | #13 App-Gerüst/Navigation/Theme (`ready`) → #14 Zweisprachigkeit DE/EN → #15 CI prüft jeden PR → #37 Smoke-Test → #36 Lokales Fehler-Log |
 | #7 Design-System & dynamische UI-Basis | 0 von 2 zu | #16 Design-System als Theme → #17 Animationsbasis |
+| #38 Release & Verteilung Android | 0 von 2 zu | #39 Signierte Release-APK → #40 Automatisches GitHub-Release |
 
 **#2 Initiative: Übungslexikon mit Muskel-Visualisierung**
 
@@ -48,7 +49,10 @@ Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
 ## Offene Entscheidungen (nur der Mensch)
 
-- Reihenfolge der ersten Stories bestätigen (Vorschlag: Epic #6 zuerst, #13 → #14 → #15); erste Story auf `ready` setzen.
+- Finale App-ID vor dem ersten öffentlichen Release festlegen (provisorisch `de.maestrodev.maestrofit`; Entscheidung 2026-10-26 vertagt).
 - Body-Map-Technik: `flutter_body_atlas` (fertiges Package, junges 0.2.x) oder eigener CustomPainter auf denselben CC-BY-SVGs – Entscheidung spätestens bei Story #21.
-- Task-Vorlage verweist auf `.claude/skills/flutter-dart/SKILL.md` (Definition of Done) – Datei existiert noch nicht; anlegen oder Verweis anpassen.
-- Struktur am 2026-10-26 vom Agenten neu angelegt (Initiativen #1–#5, Epics #6–#12, Stories #13–#35) – bitte bestätigen oder umsortieren.
+- Neu angelegt am 2026-10-26 – bitte bestätigen oder umsortieren: Stories #36 (Fehler-Log) und #37 (Smoke-Test) in Epic #6; Epic #38 „Release & Verteilung Android“ mit Stories #39/#40 in Initiative #1.
+
+## Getroffene Entscheidungen (zuletzt)
+
+- 2026-10-26: Verteilung per signierter APK über GitHub Releases (kein Play Store vorerst) · Arbeitsmodus voll autonom je Story · Fehlerberichte nur lokal · App-ID provisorisch · `.claude/skills/flutter-dart/SKILL.md` (Definition of Done) angelegt.

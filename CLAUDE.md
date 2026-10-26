@@ -20,6 +20,32 @@ Kern; Grundfunktionen bleiben frei.
   Lizenzfeldern (`license`, `license_author`). Credits-Screen ist Pflicht
   (CC-BY-Attribution der Body-Map-Grafiken). Keine Medien von MuscleWiki/ExerciseDB
   ohne Lizenz; kein AGPL-Code übernehmen (wger-App nur als Architektur-Inspiration).
+- **Verteilung:** Signierte APK über GitHub Releases (kein Play Store vorerst;
+  Einrichtung später möglich). Min-Android 8.0 (API 26).
+- **App-ID:** provisorisch `de.maestrodev.maestrofit`; finale Entscheidung vor dem
+  ersten öffentlichen Release (steht in STAND.md unter „Offene Entscheidungen“).
+- **Fehlerberichte:** Nur lokal (Log auf dem Gerät, in den Einstellungen einsehbar
+  und exportierbar). Kein Crash-Reporting-Dienst – keine Daten verlassen das Handy.
+- **Konventionen & Definition of Done:** `.claude/skills/flutter-dart/SKILL.md`
+  (bei jedem Task lesen und befolgen).
+
+## Arbeitsmodus (2026-10-26, vom Nutzer bestätigt)
+
+Der Agent arbeitet **voll autonom je Story**:
+
+1. Nächste Story laut Reihenfolge im Epic (bzw. Vorgabe des Nutzers) von `backlog`
+   auf `ready` verfeinern: volle Vorlage, Akzeptanzkriterien, Tasks als Sub-Issues.
+2. Story auf `in-progress` setzen (immer nur eine) und Tasks nacheinander umsetzen:
+   je Task ein Branch + PR nach TDD, mergen gemäß Abschnitt „Mergen“.
+3. Wenn alle Tasks gemergt sind: Smoke-Test prüfen, APK bereitstellen und den
+   Nutzer zum Testen der Akzeptanzkriterien auffordern. **Die Story schließt der
+   Nutzer** (bzw. der Agent nach dessen ausdrücklichem Test-OK).
+4. `STAND.md` bei jeder Statusänderung aktualisieren; danach ohne Rückfrage mit
+   der nächsten Story laut Reihenfolge weitermachen.
+
+Rückfragen nur bei Entscheidungen, die nicht rückgängig zu machen sind oder die
+Produktrichtung betreffen; sonst beste Annahme treffen und in der Story unter
+„Entscheidungen“ dokumentieren.
 
 ## Struktur: Initiative → Epic → Story → Task
 
