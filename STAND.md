@@ -3,15 +3,15 @@
 Aktueller Projektstand. Wird vom Agenten nach jeder Statusänderung gepflegt.
 Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
-**Zuletzt aktualisiert:** 2026-10-26
+**Zuletzt aktualisiert:** 2026-10-26 (abends)
 
 ## In Arbeit
 
-- –
+- #13 App-Gerüst mit Hauptnavigation und Theme (Epic #6) – alle Tasks gemergt (#41/PR #44, #42/PR #45, #43/PR #46); Test-APK `v0.1.0-story13` veröffentlicht, **wartet auf Nutzertest**
 
 ## Als Nächstes
 
-- #13 App-Gerüst mit Hauptnavigation und Theme (hell/dunkel) (Epic #6) – `ready`, Tasks #41 → #42 → #43
+- #14 Zweisprachigkeit DE/EN (Epic #6)
 
 ## Backlog nach Initiative → Epic
 
@@ -19,7 +19,7 @@ Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
 | Epic | Stand | Stories (Reihenfolge) |
 |---|---|---|
-| #6 Lauffähiges App-Gerüst | 0 von 5 zu | #13 App-Gerüst/Navigation/Theme (`ready`) → #14 Zweisprachigkeit DE/EN → #15 CI prüft jeden PR → #37 Smoke-Test → #36 Lokales Fehler-Log |
+| #6 Lauffähiges App-Gerüst | 0 von 5 zu | #13 App-Gerüst/Navigation/Theme (`in-progress`, wartet auf Test) → #14 Zweisprachigkeit DE/EN → #15 CI prüft jeden PR → #37 Smoke-Test → #36 Lokales Fehler-Log |
 | #7 Design-System & dynamische UI-Basis | 0 von 2 zu | #16 Design-System als Theme → #17 Animationsbasis |
 | #38 Release & Verteilung Android | 0 von 2 zu | #39 Signierte Release-APK → #40 Automatisches GitHub-Release |
 
