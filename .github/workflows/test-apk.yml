@@ -1,0 +1,45 @@
+# Provisorische Brücke, bis Story #39 (echte Signierung) und #40 (automatische
+# Releases) umgesetzt sind: baut auf Abruf eine Test-APK (Debug-Signatur) und
+# veröffentlicht sie als Pre-Release zum Abnehmen der jeweiligen Story.
+name: Test-APK veröffentlichen
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag des Pre-Release (z. B. v0.1.0-story13)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Bauen
+        run: |
+          set -eux
+          flutter pub get
+          dart run build_runner build --delete-conflicting-outputs
+          flutter test
+          flutter build apk --release
+
+      - name: Pre-Release mit APK anlegen
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eux
+          cp build/app/outputs/flutter-apk/app-release.apk "maestrofit-${{ inputs.tag }}.apk"
+          gh release create "${{ inputs.tag }}" \
+            --prerelease \
+            --title "Testversion ${{ inputs.tag }}" \
+            --notes "Testversion mit Debug-Signatur zur Story-Abnahme. Echte Signierung und automatische Releases kommen mit Story #39/#40." \
+            "maestrofit-${{ inputs.tag }}.apk"
