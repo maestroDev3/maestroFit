@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'ui/start_screen.dart';
+import 'router/app_router.dart';
 
-/// Wurzel-Widget der App.
-///
-/// Die Navigations-Shell (go_router) folgt in Task #42, die Themes in
-/// Task #43 – bis dahin zeigt die App den Platzhalter-Startbereich.
-class MaestroFitApp extends StatelessWidget {
+/// Wurzel-Widget der App mit Navigations-Shell (Themes folgen in Task #43).
+class MaestroFitApp extends ConsumerWidget {
   const MaestroFitApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(appRouterProvider);
+    return MaterialApp.router(
       title: 'maestroFit',
-      home: StartScreen(),
+      routerConfig: router,
     );
   }
 }
