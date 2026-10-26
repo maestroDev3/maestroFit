@@ -46,3 +46,7 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Generierter Code (build_runner erzeugt ihn in der CI, siehe ci.yml)
+*.g.dart
+*.freezed.dart
