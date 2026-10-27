@@ -1,5 +1,6 @@
-# Minimale CI (vorgezogen aus Story #15, die sie ausbaut: APK-Artefakt, Pinning,
-# Branch-Schutz). Nötig ab Task #41, weil Tests nur auf Runnern laufen können.
+# CI je PR und auf main (Story #15): Analyse, Codegen, Tests.
+# Reproduzierbar: Flutter exakt gepinnt (siehe .fvmrc), Actions per SHA,
+# Lockfile erzwungen. Updates über den Wartungs-Workflow (maintenance.yml).
 name: CI
 
 on:
@@ -7,37 +8,36 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   checks:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
-      - name: Prüfen, ob Flutter-Projekt vorhanden
-        id: check
-        run: echo "exists=$([ -f pubspec.yaml ] && echo true || echo false)" >> "$GITHUB_OUTPUT"
-
-      - uses: subosito/flutter-action@v2
-        if: steps.check.outputs.exists == 'true'
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
-          channel: stable
+          flutter-version: "3.47.8" # muss zu .fvmrc passen
           cache: true
 
-      - name: Abhängigkeiten
-        if: steps.check.outputs.exists == 'true'
-        run: flutter pub get
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+          restore-keys: pub-${{ runner.os }}-
+
+      - name: Abhängigkeiten (Lockfile erzwungen)
+        run: flutter pub get --enforce-lockfile
 
       - name: Codegenerierung
-        if: steps.check.outputs.exists == 'true'
-        run: |
-          if grep -q build_runner pubspec.yaml; then
-            dart run build_runner build --delete-conflicting-outputs
-          fi
+        run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Analyse
-        if: steps.check.outputs.exists == 'true'
         run: flutter analyze
 
       - name: Tests
-        if: steps.check.outputs.exists == 'true'
         run: flutter test
