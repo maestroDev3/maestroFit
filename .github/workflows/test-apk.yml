@@ -13,21 +13,32 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: test-apk
+  cancel-in-progress: false
+
 jobs:
   apk:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
         with:
-          channel: stable
+          flutter-version: "3.47.8" # muss zu .fvmrc passen
           cache: true
+
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('pubspec.lock') }}
+          restore-keys: pub-${{ runner.os }}-
 
       - name: Bauen
         run: |
           set -eux
-          flutter pub get
+          flutter pub get --enforce-lockfile
           dart run build_runner build --delete-conflicting-outputs
           flutter test
           flutter build apk --release
