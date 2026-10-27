@@ -50,3 +50,6 @@ app.*.map.json
 # Generierter Code (build_runner erzeugt ihn in der CI, siehe ci.yml)
 *.g.dart
 *.freezed.dart
+
+# Golden-/Screenshot-Dateien entstehen nur in der CI (Artefakt)
+test/screenshots/goldens/
