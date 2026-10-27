@@ -1,0 +1,43 @@
+# Wartung: erzeugt pubspec.lock und .fvmrc (exakte Flutter-Version) auf dem
+# Runner und committet beides auf den angegebenen Branch. Wird manuell
+# ausgelöst, z. B. für Dependency-Updates oder Flutter-Upgrades (Story #15).
+name: "Wartung: Lockfile und Flutter-Version"
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Ziel-Branch für pubspec.lock und .fvmrc"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ inputs.branch }}
+
+      # Bewusst channel stable (ungepinnt): dieser Workflow ermittelt die
+      # jeweils aktuelle stabile Version, die dann überall gepinnt wird.
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Lockfile und .fvmrc erzeugen und committen
+        run: |
+          set -eux
+          flutter --version
+          flutter pub get
+          V=$(flutter --version --machine | jq -r .frameworkVersion)
+          printf '{\n  "flutter": "%s"\n}\n' "$V" > .fvmrc
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pubspec.lock .fvmrc
+          git commit -m "pubspec.lock und .fvmrc aktualisieren (Wartungs-Workflow)" || echo "nichts zu committen"
+          git push origin "HEAD:${{ inputs.branch }}"
