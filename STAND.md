@@ -3,11 +3,11 @@
 Aktueller Projektstand. Wird vom Agenten nach jeder Statusänderung gepflegt.
 Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
-**Zuletzt aktualisiert:** 2026-10-27
+**Zuletzt aktualisiert:** 2026-10-27 (nachmittags)
 
 ## In Arbeit
 
-- – (nächste Story startet nach Freigabe: #15)
+- – (nächste Story: #39 Signierte Release-APK)
 
 ## Wartet auf Nutzertest (`awaiting-test`)
 
@@ -17,14 +17,13 @@ Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
 Reihenfolge nach Planungs-Review (2 unabhängige Reviews, vom Nutzer bestätigt 2026-10-27):
 
-1. #15 CI härten: Pinning/Lockfile, Smoke-Test als Task, Screenshots (Epic #6, Enabler)
-2. #39 Signierte Release-APK + #40 Auto-Release (Epic #38 – vorgezogen: Debug→Release-Signaturwechsel würde später Nutzerdaten löschen)
-3. #47 Drift-Grundgerüst (Epic #6, Enabler)
-4. #51 Seed-/Asset-Pipeline (Epic #8, Enabler) → #18 Übungsbibliothek
-5. #24 Übungsdetailseite + #25 Credits-Screen (Credits vor der ersten Body-Map-Grafik!)
-6. #21 Body-Map → #22 Muskel antippen
-7. #48 Einheiten kg/lbs → #26 Workout loggen → #49 Abschluss → #35 Export (vorgezogen)
-8. Danach: #14 Sprache, Epic #7 Design (gegen echte Screens), Rest laut Epic-Listen
+1. #39 Signierte Release-APK + #40 Auto-Release (Epic #38 – vorgezogen: Debug→Release-Signaturwechsel würde später Nutzerdaten löschen)
+2. #47 Drift-Grundgerüst (Epic #6, Enabler)
+3. #51 Seed-/Asset-Pipeline (Epic #8, Enabler) → #18 Übungsbibliothek
+4. #24 Übungsdetailseite + #25 Credits-Screen (Credits vor der ersten Body-Map-Grafik!)
+5. #21 Body-Map → #22 Muskel antippen
+6. #48 Einheiten kg/lbs → #26 Workout loggen → #49 Abschluss → #35 Export (vorgezogen)
+7. Danach: #14 Sprache, Epic #7 Design (gegen echte Screens), Rest laut Epic-Listen
 
 ## Backlog nach Initiative → Epic
 
@@ -32,7 +31,7 @@ Reihenfolge nach Planungs-Review (2 unabhängige Reviews, vom Nutzer bestätigt 
 
 | Epic | Stand | Stories (Reihenfolge) |
 |---|---|---|
-| #6 Lauffähiges App-Gerüst | 0 von 5 zu (+#37 aufgelöst) | #13 (`awaiting-test`) → #15 CI (Enabler) → #47 Drift-Grundgerüst (Enabler) → #36 Fehler-Log → #14 Zweisprachigkeit |
+| #6 Lauffähiges App-Gerüst | 1 von 5 zu (+#37 aufgelöst) | #13 (`awaiting-test`) → ~~#15 CI~~ (zu) → #47 Drift-Grundgerüst (Enabler) → #36 Fehler-Log → #14 Zweisprachigkeit |
 | #7 Design-System & dynamische UI-Basis | 0 von 2 zu | #16 Design-Tokens + 4 Kernkomponenten → #17 Animationsbasis (erst wenn 3–4 echte Screens existieren) |
 | #38 Release & Verteilung Android | 0 von 2 zu | #39 Signierte Release-APK → #40 Automatisches GitHub-Release (**vorgezogen**) |
 
@@ -59,6 +58,7 @@ Reihenfolge nach Planungs-Review (2 unabhängige Reviews, vom Nutzer bestätigt 
 
 ## Zuletzt erledigt
 
+- #15 CI gehärtet und vollständig (Enabler; PRs #63–#66: Pinning Flutter 3.47.8 + Lockfile, Smoke-Test je PR, Debug-APK- und Screenshot-Artefakte, Nightly-Emulator-Lauf grün)
 - #37 Smoke-Test-Story aufgelöst (wird Task in #15; Review 2026-10-27)
 
 ## Offene Entscheidungen (nur der Mensch)
