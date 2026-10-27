@@ -40,7 +40,19 @@ jobs:
         run: flutter analyze
 
       - name: Tests
-        run: flutter test
+        run: flutter test -x screenshots
+
+      - name: Screenshots der Hauptbereiche erzeugen
+        if: github.event_name == 'pull_request'
+        run: flutter test --tags screenshots --update-goldens test/screenshots
+
+      - name: Screenshots als Artefakt
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: screenshots
+          path: test/screenshots/goldens/*.png
+          retention-days: 14
 
       - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         if: github.event_name == 'pull_request'

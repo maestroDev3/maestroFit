@@ -1,0 +1,4 @@
+# Test-Tags: `screenshots` läuft nur im eigenen CI-Schritt (--update-goldens),
+# nicht im normalen Testlauf (flutter test -x screenshots).
+tags:
+  screenshots:
