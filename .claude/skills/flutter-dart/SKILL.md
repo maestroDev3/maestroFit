@@ -7,7 +7,8 @@ description: Konventionen und Definition of Done für die Flutter/Dart-Entwicklu
 
 ## 1. Stack und Versionen
 
-- Flutter stable (Version in `.fvmrc`/CI gepinnt), Dart aus dem Flutter-SDK.
+- Flutter stable; Version wird mit Story #15 in CI und `.fvmrc` gepinnt
+  (bis dahin: `channel: stable`), Dart aus dem Flutter-SDK.
 - Pakete: Drift (DB) · Riverpod 3 mit riverpod_generator (State) · go_router
   (Navigation) · freezed (Modelle) · flutter_svg (Body-Map) · fl_chart (Charts) ·
   Rive/Lottie (Animationen) · intl/ARB (Lokalisierung) · shared_preferences
@@ -54,9 +55,13 @@ integration_test/  # Smoke-/Flow-Tests
 
 ## 5. Tests (TDD)
 
-- Reihenfolge: zuerst der rote Test, dann die Umsetzung, dann Refactoring.
-- Jedes technische Akzeptanzkriterium des Tasks = genau ein Test; der Testname
-  ist das Kriterium (deutsch, beschreibend).
+- Reihenfolge: zuerst der rote Test, dann die Umsetzung, dann Refactoring
+  (roter Zustand belegt durch Commit-Reihenfolge im PR).
+- Jedes technische Akzeptanzkriterium des Tasks = mindestens ein benannter Test;
+  der Testname ist das Kriterium (deutsch, beschreibend). Rein visuelle Kriterien
+  per Golden-Test oder ausdrücklich „manuell beim Nutzertest“.
+- Vorsicht mit `pumpAndSettle()` bei Dauer-Animationen (hängt endlos) –
+  stattdessen gezielt `pump(duration)`.
 - Ebenen: Unit-Tests für domain/data, Widget-Tests für ui,
   `integration_test/smoke_test.dart` als Smoke-Test (App startet, alle
   Hauptbereiche erreichbar).
@@ -74,8 +79,9 @@ integration_test/  # Smoke-/Flow-Tests
 
 Ein Task ist fertig, wenn:
 
-1. Jedes technische Akzeptanzkriterium durch genau einen benannten, grünen Test
-   belegt ist (TDD: Test zuerst geschrieben).
+1. Jedes technische Akzeptanzkriterium durch mindestens einen benannten, grünen
+   Test belegt ist (TDD: Test zuerst geschrieben); rein visuelle Kriterien per
+   Golden-Test oder markiert „manuell beim Nutzertest“.
 2. `flutter analyze` ohne Fehler und Warnungen durchläuft.
 3. `flutter test` (gesamte Suite) grün ist; der Smoke-Test weiterhin grün ist,
    sobald er existiert.

@@ -3,15 +3,28 @@
 Aktueller Projektstand. Wird vom Agenten nach jeder Statusänderung gepflegt.
 Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
-**Zuletzt aktualisiert:** 2026-10-26 (abends)
+**Zuletzt aktualisiert:** 2026-10-27
 
 ## In Arbeit
 
-- #13 App-Gerüst mit Hauptnavigation und Theme (Epic #6) – alle Tasks gemergt (#41/PR #44, #42/PR #45, #43/PR #46); Test-APK `v0.1.0-story13` veröffentlicht, **wartet auf Nutzertest**
+- – (nächste Story startet nach Freigabe: #15)
+
+## Wartet auf Nutzertest (`awaiting-test`)
+
+- #13 App-Gerüst mit Hauptnavigation und Theme (Epic #6) – Test-APK `v0.1.0-story13`
 
 ## Als Nächstes
 
-- #14 Zweisprachigkeit DE/EN (Epic #6)
+Reihenfolge nach Planungs-Review (2 unabhängige Reviews, vom Nutzer bestätigt 2026-10-27):
+
+1. #15 CI härten: Pinning/Lockfile, Smoke-Test als Task, Screenshots (Epic #6, Enabler)
+2. #39 Signierte Release-APK + #40 Auto-Release (Epic #38 – vorgezogen: Debug→Release-Signaturwechsel würde später Nutzerdaten löschen)
+3. #47 Drift-Grundgerüst (Epic #6, Enabler)
+4. #51 Seed-/Asset-Pipeline (Epic #8, Enabler) → #18 Übungsbibliothek
+5. #24 Übungsdetailseite + #25 Credits-Screen (Credits vor der ersten Body-Map-Grafik!)
+6. #21 Body-Map → #22 Muskel antippen
+7. #48 Einheiten kg/lbs → #26 Workout loggen → #49 Abschluss → #35 Export (vorgezogen)
+8. Danach: #14 Sprache, Epic #7 Design (gegen echte Screens), Rest laut Epic-Listen
 
 ## Backlog nach Initiative → Epic
 
@@ -19,40 +32,41 @@ Maßgeblich sind die GitHub-Issues; diese Datei ist die Kurzfassung.
 
 | Epic | Stand | Stories (Reihenfolge) |
 |---|---|---|
-| #6 Lauffähiges App-Gerüst | 0 von 5 zu | #13 App-Gerüst/Navigation/Theme (`in-progress`, wartet auf Test) → #14 Zweisprachigkeit DE/EN → #15 CI prüft jeden PR → #37 Smoke-Test → #36 Lokales Fehler-Log |
-| #7 Design-System & dynamische UI-Basis | 0 von 2 zu | #16 Design-System als Theme → #17 Animationsbasis |
-| #38 Release & Verteilung Android | 0 von 2 zu | #39 Signierte Release-APK → #40 Automatisches GitHub-Release |
+| #6 Lauffähiges App-Gerüst | 0 von 5 zu (+#37 aufgelöst) | #13 (`awaiting-test`) → #15 CI (Enabler) → #47 Drift-Grundgerüst (Enabler) → #36 Fehler-Log → #14 Zweisprachigkeit |
+| #7 Design-System & dynamische UI-Basis | 0 von 2 zu | #16 Design-Tokens + 4 Kernkomponenten → #17 Animationsbasis (erst wenn 3–4 echte Screens existieren) |
+| #38 Release & Verteilung Android | 0 von 2 zu | #39 Signierte Release-APK → #40 Automatisches GitHub-Release (**vorgezogen**) |
 
 **#2 Initiative: Übungslexikon mit Muskel-Visualisierung**
 
 | Epic | Stand | Stories (Reihenfolge) |
 |---|---|---|
-| #8 Übungsdatenbank an Bord | 0 von 3 zu | #18 Bibliothek durchsuchen/filtern → #19 Muskel-Mapping → #20 Deutsche Übungsnamen |
-| #9 Interaktive Body-Map | 0 von 3 zu | #21 Body-Map ansehen → #22 Muskel antippen → Übungen → #23 Primär/Sekundär auf Übungsdetail |
-| #10 Übungsdetail mit Ausführung | 0 von 2 zu | #24 Detailseite mit Ausführungsschritten → #25 Credits-/Lizenzen-Screen |
+| #8 Übungsdatenbank an Bord | 0 von 6 zu | #51 Seed-/Asset-Pipeline (Enabler) → #18 Bibliothek → #19 Muskel-Mapping → #52 Eigene Übungen → #53 Favoriten → #20 Deutsche Namen (Top-50) |
+| #9 Interaktive Body-Map | 0 von 3 zu | #21 Body-Map ansehen → #22 Muskel antippen → #23 Primär/Sekundär auf Detail (nach #24) |
+| #10 Übungsdetail mit Ausführung | 0 von 2 zu | #24 Detailseite → #25 Credits-Screen (mit/vor #21 ausliefern) |
 
 **#3 Initiative: Training erfassen & auswerten**
 
 | Epic | Stand | Stories (Reihenfolge) |
 |---|---|---|
-| #11 Schneller Workout-Logger | 0 von 5 zu | #26 Workout starten/Sätze loggen → #27 Ghost-Werte → #28 Rest-Timer → #29 Satztypen/Supersätze → #30 Plate Calculator |
-| #12 Fortschritt sichtbar | 0 von 5 zu | #31 Historie/Kalender → #32 Charts → #33 Wochen-Heatmap → #34 PR-Erkennung → #35 Export/Backup |
+| #11 Schneller Workout-Logger | 0 von 8 zu | #48 Einheiten kg/lbs → #26 Workout loggen → #49 Abschluss/Zusammenfassung → #27 Ghost-Werte → #28 Rest-Timer → #29 Satztypen → #50 Supersätze → #30 Plate Calculator |
+| #55 Routinen & Vorlagen (neu) | 0 von 3 zu | #56 Routine anlegen/aus Workout → #57 Workout aus Routine starten → #58 Bearbeiten/Duplizieren |
+| #12 Fortschritt sichtbar | 0 von 6 zu | #35 Export/Backup (**vorgezogen**) → #31 Historie/Kalender → #32 Charts → #33 Wochen-Heatmap → #34 PR-Erkennung → #54 Körpergewicht |
 
 **Ruht**
 
-- #4 Initiative: Intelligente Trainingsunterstützung – Epics entstehen, sobald Lexikon + Tracking stehen (Fitbod-Inspiration: Recovery-Heatmap, Progressionshinweise, Vorschläge)
+- #4 Initiative: Intelligente Trainingsunterstützung – Epics entstehen, sobald Lexikon + Tracking stehen
 - #5 Initiative: Kursangebote & Monetarisierung – bewusst geparkt
 
 ## Zuletzt erledigt
 
-- –
+- #37 Smoke-Test-Story aufgelöst (wird Task in #15; Review 2026-10-27)
 
 ## Offene Entscheidungen (nur der Mensch)
 
-- Finale App-ID vor dem ersten öffentlichen Release festlegen (provisorisch `de.maestrodev.maestrofit`; Entscheidung 2026-10-26 vertagt).
-- Body-Map-Technik: `flutter_body_atlas` (fertiges Package, junges 0.2.x) oder eigener CustomPainter auf denselben CC-BY-SVGs – Entscheidung spätestens bei Story #21.
-- Neu angelegt am 2026-10-26 – bitte bestätigen oder umsortieren: Stories #36 (Fehler-Log) und #37 (Smoke-Test) in Epic #6; Epic #38 „Release & Verteilung Android“ mit Stories #39/#40 in Initiative #1.
+- Finale App-ID vor dem ersten öffentlichen Release festlegen (provisorisch `de.maestrodev.maestrofit`).
 
 ## Getroffene Entscheidungen (zuletzt)
 
-- 2026-10-26: Verteilung per signierter APK über GitHub Releases (kein Play Store vorerst) · Arbeitsmodus voll autonom je Story · Fehlerberichte nur lokal · App-ID provisorisch · `.claude/skills/flutter-dart/SKILL.md` (Definition of Done) angelegt.
+- 2026-10-27: **Planungs-Review umgesetzt** (2 unabhängige Reviews: App-Engineer + Produkt; vom Nutzer bestätigt): Reihenfolge neu (Fachwert früher, Signierung/#39 und Export/#35 vorgezogen, Design-Epic nach echten Screens, #14 nach hinten), neue Issues #47–#58 (u. a. Routinen-Epic #55, Seed-Pipeline #51, kg/lbs #48), Status `awaiting-test` + Enabler-Regel + Bug-Workflow, TDD-Regel „mindestens ein Test", Smoke = Widget-Test je PR.
+- 2026-10-27: **Body-Map als eigener CustomPainter** auf den CC-BY-SVGs (kein flutter_body_atlas); Lottie vor Rive.
+- 2026-10-26: Verteilung per signierter APK über GitHub Releases · Arbeitsmodus voll autonom je Story · Fehlerberichte nur lokal · App-ID provisorisch · SKILL.md (Definition of Done) angelegt.

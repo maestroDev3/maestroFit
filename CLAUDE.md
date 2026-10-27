@@ -13,8 +13,10 @@ Kern; Grundfunktionen bleiben frei.
 - **Daten:** Lokal auf dem Gerät (Drift/SQLite), kein Konto, kein Server.
   Export/Backup (CSV/JSON) ist fester Bestandteil. Cloud-Sync: bewusst nicht jetzt.
 - **Stack:** Drift (DB) · Riverpod 3 (State) · go_router (Navigation) ·
-  flutter_svg + Body-Map (flutter_body_atlas oder eigener CustomPainter) ·
-  Rive/Lottie (Animationen) · fl_chart (Statistiken) · freezed (Modelle).
+  flutter_svg + Body-Map als **eigener CustomPainter** auf den CC-BY-SVGs
+  (entschieden 2026-10-27; kein flutter_body_atlas) ·
+  Lottie zuerst, Rive nur bei konkretem Bedarf (Animationen) ·
+  fl_chart (Statistiken) · freezed (Modelle).
 - **Übungsdaten:** free-exercise-db (Public Domain) als gebündelter Offline-Seed;
   Mapping-Tabelle Datenbank-Muskel → SVG-Muskel-ID. Übernahmen aus wger nur mit
   Lizenzfeldern (`license`, `license_author`). Credits-Screen ist Pflicht
@@ -37,11 +39,13 @@ Der Agent arbeitet **voll autonom je Story**:
    auf `ready` verfeinern: volle Vorlage, Akzeptanzkriterien, Tasks als Sub-Issues.
 2. Story auf `in-progress` setzen (immer nur eine) und Tasks nacheinander umsetzen:
    je Task ein Branch + PR nach TDD, mergen gemäß Abschnitt „Mergen“.
-3. Wenn alle Tasks gemergt sind: Smoke-Test prüfen, APK bereitstellen und den
-   Nutzer zum Testen der Akzeptanzkriterien auffordern. **Die Story schließt der
-   Nutzer** (bzw. der Agent nach dessen ausdrücklichem Test-OK).
+3. Wenn alle Tasks gemergt sind: Smoke-Test prüfen, Story auf `awaiting-test`
+   setzen, APK bereitstellen und den Nutzer zum Testen der Akzeptanzkriterien
+   auffordern. **Die Story schließt der Nutzer** (bzw. der Agent nach dessen
+   ausdrücklichem Test-OK). Enabler-Stories schließt der Agent selbst.
 4. `STAND.md` bei jeder Statusänderung aktualisieren; danach ohne Rückfrage mit
-   der nächsten Story laut Reihenfolge weitermachen.
+   der nächsten Story laut Reihenfolge weitermachen – `awaiting-test` blockiert
+   nicht.
 
 Rückfragen nur bei Entscheidungen, die nicht rückgängig zu machen sind oder die
 Produktrichtung betreffen; sonst beste Annahme treffen und in der Story unter
@@ -62,11 +66,21 @@ Status einer Story (Label, genau eins; erledigt = geschlossen):
 - `backlog` – Idee, grob beschrieben, noch keine Tasks
 - `ready` – verfeinert, Tasks mit Akzeptanzkriterien stehen
 - `in-progress` – wird gerade umgesetzt (immer nur eine Story gleichzeitig)
+- `awaiting-test` – alle Tasks gemergt, wartet auf den Nutzertest (beliebig viele
+  gleichzeitig; der Nutzer darf gebündelt pro Test-APK testen). Der Agent arbeitet
+  währenddessen an der nächsten Story weiter.
 
 Regeln:
 - Tasks werden erst geschrieben, wenn eine Story von `backlog` nach `ready` wechselt.
 - Welche Story als Nächstes umgesetzt wird, entscheidet der Mensch; ohne Vorgabe die
   nächste `ready`-Story laut Reihenfolge im Epic.
+- **Enabler-Stories** (für den Nutzer nicht in der APK abnehmbar, z. B. CI, Daten-
+  Pipelines; im Body als „Enabler“ markiert): der Agent schließt sie selbst, sobald
+  die CI grün ist und die Kriterien erfüllt sind – kein `awaiting-test`.
+- **Bugs:** Fehler, die im Nutzertest einer noch offenen Story auffallen, werden ein
+  neuer Task unter dieser Story. Fehler nach Story-Schluss werden ein leichtgewichtiges
+  Issue mit Label `bug` (Zweck, Schritte, erwartet/ist), als Sub-Issue am passenden
+  Epic – keine volle Story-Zeremonie, „Geschlossen bleibt geschlossen“ gilt.
 
 ## Initiativen und Epics: Konvention
 
@@ -122,12 +136,18 @@ schreibt Issues per API immer nach dieser Gliederung.
 ## Mergen
 
 - Jeder Task wird in genau einem PR umgesetzt (Branch `task/<issue-nr>-kurztitel`),
-  TDD: Test zuerst, dann Umsetzung.
+  TDD: Test zuerst, dann Umsetzung. Der rote Ausgangszustand wird über die
+  Commit-Reihenfolge im PR belegt (kein separater roter CI-Lauf nötig).
 - Gemergt wird nur, wenn die CI grün ist (`flutter analyze` + `flutter test`) und
-  jedes technische Akzeptanzkriterium des Tasks durch genau einen Test belegt ist.
+  jedes technische Akzeptanzkriterium des Tasks durch **mindestens einen** benannten
+  Test belegt ist (Testname = Kriterium). Rein visuelle Kriterien (Animationen,
+  Farbverläufe) per Golden-Test oder ausdrücklich als „manuell beim Nutzertest“
+  markiert.
 - Squash-Merge; Head-Branch danach löschen.
+- **Smoke-Test** = Widget-Test „App startet, alle Hauptbereiche erreichbar“, läuft
+  je PR; `integration_test` auf dem Emulator nur nightly bzw. vor einem Release.
 - Eine Story wird geschlossen, wenn alle Tasks gemergt sind, der Smoke-Test grün ist
-  und der Nutzer die Akzeptanzkriterien in der App geprüft hat.
+  und der Nutzer die Akzeptanzkriterien in der App geprüft hat (Enabler: CI grün).
 - Ein Epic wird geschlossen, sobald alle Stories geschlossen sind.
 
 ## Stand pflegen (`STAND.md`)
