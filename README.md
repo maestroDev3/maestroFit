@@ -10,8 +10,14 @@ Persönliche Trainings-App für Krafttraining und Bodybuilding (Flutter/Dart, An
 - **Lokal:** Daten bleiben auf dem Gerät (SQLite/Drift), mit Export/Backup.
   Kein Konto, keine Werbung, keine Bezahlkurse im Kern.
 
-## Planung
+## Planung & Doku
 
 Die Arbeit ist in GitHub-Issues organisiert: **Initiative → Epic → Story → Task**
-(verknüpft über Sub-Issues, unterschieden über Labels). Details: [`CLAUDE.md`](CLAUDE.md),
-Kurzüberblick über den aktuellen Stand: [`STAND.md`](STAND.md).
+(verknüpft über Sub-Issues, unterschieden über Labels).
+
+| Datei | Inhalt |
+|---|---|
+| [`PROJEKT.md`](PROJEKT.md) | Produktbeschreibung, Leitplanken, Meilensteine |
+| [`ARCHITEKTUR.md`](ARCHITEKTUR.md) | Schichten, Datenmodell, Body-Map, Pipelines |
+| [`CLAUDE.md`](CLAUDE.md) | Regeln für den autonomen Agenten |
+| [`STAND.md`](STAND.md) | Kurzüberblick über den aktuellen Stand |

@@ -5,6 +5,11 @@ beanspruchte Muskeln visualisieren (interaktive Body-Map), Bewegungsausführung
 sehen, eigenes Training schnell eintragen und auswerten. Keine Bezahlkurse im
 Kern; Grundfunktionen bleiben frei.
 
+**Pflichtlektüre für den Agenten:** `PROJEKT.md` (Produkt, Meilensteine) ·
+`ARCHITEKTUR.md` (Schichten, Datenmodell) ·
+`.claude/skills/story-loop/SKILL.md` (Runbook, Umgebungs-Besonderheiten) ·
+`.claude/skills/flutter-dart/SKILL.md` (Konventionen, Definition of Done).
+
 ## Technik-Entscheidungen (2026-10-26)
 
 - **Plattform:** Flutter/Dart. Android zuerst, iOS später (eigenes Epic, wenn dran).
@@ -28,24 +33,31 @@ Kern; Grundfunktionen bleiben frei.
   ersten öffentlichen Release (steht in STAND.md unter „Offene Entscheidungen“).
 - **Fehlerberichte:** Nur lokal (Log auf dem Gerät, in den Einstellungen einsehbar
   und exportierbar). Kein Crash-Reporting-Dienst – keine Daten verlassen das Handy.
+- **Design (2026-10-28):** Dunkel-first mit kräftigem Akzent (Gym-Ästhetik),
+  helles Theme vollwertig; Feinschliff in Epic #7 gegen echte Screens.
+- **Keystore (2026-10-28):** Der Agent erzeugt Keystore + Passwörter (#39);
+  der Nutzer verwahrt die Kopie – ohne bestätigtes Backup kein Release-Umstieg.
 - **Konventionen & Definition of Done:** `.claude/skills/flutter-dart/SKILL.md`
   (bei jedem Task lesen und befolgen).
 
-## Arbeitsmodus (2026-10-26, vom Nutzer bestätigt)
+## Arbeitsmodus (aktualisiert 2026-10-28, vom Nutzer bestätigt)
 
-Der Agent arbeitet **voll autonom je Story**:
+Der Agent arbeitet **voll autonom, Abnahme gebündelt je Meilenstein**:
 
-1. Nächste Story laut Reihenfolge im Epic (bzw. Vorgabe des Nutzers) von `backlog`
-   auf `ready` verfeinern: volle Vorlage, Akzeptanzkriterien, Tasks als Sub-Issues.
+1. Nächste Story laut Reihenfolge (STAND.md/Milestone, bzw. Vorgabe des Nutzers)
+   von `backlog` auf `ready` verfeinern: volle Vorlage, Akzeptanzkriterien,
+   Tasks als Sub-Issues.
 2. Story auf `in-progress` setzen (immer nur eine) und Tasks nacheinander umsetzen:
    je Task ein Branch + PR nach TDD, mergen gemäß Abschnitt „Mergen“.
-3. Wenn alle Tasks gemergt sind: Smoke-Test prüfen, Story auf `awaiting-test`
-   setzen, APK bereitstellen und den Nutzer zum Testen der Akzeptanzkriterien
-   auffordern. **Die Story schließt der Nutzer** (bzw. der Agent nach dessen
-   ausdrücklichem Test-OK). Enabler-Stories schließt der Agent selbst.
-4. `STAND.md` bei jeder Statusänderung aktualisieren; danach ohne Rückfrage mit
-   der nächsten Story laut Reihenfolge weitermachen – `awaiting-test` blockiert
-   nicht.
+3. **Der Agent schließt die Story selbst**, sobald alle Tasks gemergt sind, der
+   Smoke-Test grün ist und die CI-Screenshots plausibel aussehen
+   (Abschlusskommentar mit PR-Links). `awaiting-test` nur noch für Stories, die
+   ausdrücklich Nutzerinput brauchen.
+4. **Meilenstein fertig** (alle Stories des GitHub-Milestones zu): Test-APK als
+   Pre-Release veröffentlichen, Nutzer testet gebündelt; Fehler werden
+   `bug`-Issues. Danach Milestone schließen.
+5. `STAND.md` bei jeder Statusänderung aktualisieren; ohne Rückfrage mit der
+   nächsten Story weitermachen.
 
 Rückfragen nur bei Entscheidungen, die nicht rückgängig zu machen sind oder die
 Produktrichtung betreffen; sonst beste Annahme treffen und in der Story unter
@@ -146,8 +158,9 @@ schreibt Issues per API immer nach dieser Gliederung.
 - Squash-Merge; Head-Branch danach löschen.
 - **Smoke-Test** = Widget-Test „App startet, alle Hauptbereiche erreichbar“, läuft
   je PR; `integration_test` auf dem Emulator nur nightly bzw. vor einem Release.
-- Eine Story wird geschlossen, wenn alle Tasks gemergt sind, der Smoke-Test grün ist
-  und der Nutzer die Akzeptanzkriterien in der App geprüft hat (Enabler: CI grün).
+- Eine Story wird geschlossen, wenn alle Tasks gemergt sind, der Smoke-Test grün
+  ist und der Agent die CI-Screenshots geprüft hat; der Nutzer testet gebündelt
+  je Meilenstein-APK, Fehler werden `bug`-Issues (Stand 2026-10-28).
 - Ein Epic wird geschlossen, sobald alle Stories geschlossen sind.
 
 ## Stand pflegen (`STAND.md`)
