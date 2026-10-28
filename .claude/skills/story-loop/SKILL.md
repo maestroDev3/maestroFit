@@ -20,9 +20,10 @@ Code-Konventionen/DoD: `.claude/skills/flutter-dart/SKILL.md` · Produkt/Meilens
   `gh api repos/maestroDev3/maestroFit/issues/<nr>/sub_issues` (POST mit
   `-F sub_issue_id=<issue-ID, nicht Nummer>`).
 - **Gesperrt** (nicht erneut versuchen): Repo-Settings-Writes, Branch löschen
-  (API und git push --delete), GitHub-Secrets evtl. auch (bei Bedarf testen,
-  sonst Anleitung an den Nutzer). Gemergte Branches bleiben stehen, bis der
-  Nutzer „Automatically delete head branches“ aktiviert.
+  (API und git push --delete), **GitHub-Secrets lesen/schreiben** (geprüft
+  2026-10-28: 403) → Secrets legt der Nutzer an, Workflows mit Fallback bauen,
+  falls ein Secret fehlt. Gemergte Branches bleiben stehen, bis der Nutzer
+  „Automatically delete head branches“ aktiviert.
 - **Action-SHAs auflösen** ohne API-Zugriff auf fremde Repos:
   `git ls-remote https://github.com/<owner>/<repo> "refs/tags/<tag>^{}"`.
 - **Kein Vordergrund-`sleep`** in Befehlen; auf CI warten mit einem
